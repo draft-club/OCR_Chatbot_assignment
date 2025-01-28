@@ -1,0 +1,6 @@
+### requirements.txt
+
+
+transformers
+Pillow
+numpy

@@ -46,9 +46,3 @@ OCR_Project/
     |-- utils.py
 ```
 
-## Features
-
-- State-of-the-art OCR using QWEN VL-2.
-- Object-oriented design.
-- Clean code adhering to PEP8 standards.
-- Easily extensible architecture.

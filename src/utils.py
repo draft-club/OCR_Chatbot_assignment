@@ -1,9 +1,25 @@
-from PIL import Image
 import os
+from pdf2image import convert_from_path
 
-from PIL import Image
-import os
-from constants import Constants
+def pdf_to_images(pdf_path, output_dir):
+    #Convert a PDF file into individual images.
+    if not os.path.exists(pdf_path):
+        print(f"Error: PDF not found at {pdf_path}")
+        return None
 
-def is_supported_format(file_name):
-    return any(file_name.lower().endswith(ext) for ext in Constants.INPUT_IMAGE_FORMATS)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    try:
+        images = convert_from_path(pdf_path, dpi=300)
+        image_paths = []
+        for i, image in enumerate(images):
+            image_path = os.path.join(output_dir, f"page_{i+1}.png")
+            image.save(image_path, "PNG")
+            image_paths.append(image_path)
+            print(f"Saved: {image_path}")
+
+        return image_paths
+    except Exception as e:
+        print(f"Error converting PDF: {e}")
+        return None

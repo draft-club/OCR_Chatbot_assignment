@@ -32,6 +32,7 @@ class OCREngine:
             return None
 
     def perform_ocr(self, image_path, preprocess=True):
+        """Run OCR on an image and return extracted text."""
         try:
             if not os.path.exists(image_path):
                 print(f"Error: Image not found at {image_path}")
@@ -68,11 +69,3 @@ class OCREngine:
         except Exception as e:
             print(f"OCR error: {e}")
             return None
-            
-'''The initial model (qwen-vl-2) could not be used because it resulted in a 404 error on Hugging Face, 
-meaning the model was either removed, renamed, or private. 
-
-After that, I tested multiple alternatives, including microsoft/trocr-base-handwritten, microsoft/layoutlmv3-base,
-and qwen-vl-2, but none provided reliable text extraction. The best results were achieved with microsoft/trocr-large-printed,
-whichrequired modifications to preprocessing, resizing, and binarization to enhance text clarity and align with the new model’s
- requirements.'''

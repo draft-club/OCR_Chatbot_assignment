@@ -1,48 +1,62 @@
-# OCR_Chatbot_assignment
+# OCR Chatbot Assignment
 
-```markdown
-# OCR Project PoC
+## Overview
+This project is an Optical Character Recognition (OCR) chatbot that extracts text from images. Initially, the system was designed to use the **QWEN VL-2** model from Hugging Face, but modifications were required due to model availability and performance issues. The final implementation uses **Microsoft's TrOCR** model, which provided the best balance of accuracy and reliability.
 
-This project demonstrates an OCR application using the QWEN VL-2 model from Hugging Face.
+## Modifications and Improvements
 
-## Installation
+### Issues with the Initial Model (`qwen-vl-2`)
+1. The model was unavailable on Hugging Face, returning a **404 error** when attempting to load it.
+2. Other tested alternatives, including:
+   - `microsoft/trocr-base-handwritten`
+   - `microsoft/layoutlmv3-base`
+   - `qwen-vl-2`
+   
+   These models either failed to extract meaningful text or returned random characters instead of actual words.
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-repo/OCR_Project.git
-   cd OCR_Project
-   ```
+3. The best results were obtained with **`microsoft/trocr-large-printed`**, although it was not fully accurate in all cases.
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Enhancements Implemented
+- **Preprocessing Adjustments**:  
+  - Added grayscale conversion and binarization to improve text contrast.
+  - Introduced noise reduction techniques using Non-Local Means Denoising.
+  - Resized images to a standardized format for consistent OCR performance.
 
-## Usage
+- **Streamlit Web Application**:  
+  - Built a user-friendly interface for uploading images and displaying extracted text.
+  - Integrated PDF processing functionality to handle multi-page documents.
 
-1. Place images to process in the `input_images` directory.
+- **Deployment and Authentication**:
+  - Configured the application for deployment on Streamlit Cloud.
+  - Used GitHub authentication via Personal Access Token (PAT) for secure repository access.
 
-2. Run the project:
-   ```bash
-   python main.py
-   ```
 
-3. Extracted text will be displayed in the console.
 
 ## Directory Structure
-
 ```
-OCR_Project/
-|-- main.py
-|-- constants.py
-|-- paths.py
+OCR_Chatbot_assignment/
+|-- app.py
 |-- config.py
-|-- requirements.txt
+|-- constants.py
+|-- main.py
 |-- README.md
-|-- src/
-    |-- __init__.py
-    |-- ocr_engine.py
-    |-- preprocessing.py
-    |-- utils.py
+|
+|-- input_images/             # Directory for storing input images for OCR
+|
+|-- output/                   # Directory for storing processed images/text output
+|
+|-- pdf_pages/                # Directory for storing extracted pages from PDFs
+|   |-- page_1.png            # Example extracted page from a PDF
+|
+|-- src/                      # Source code directory
+|   |-- ocr_engine.py          # Main OCR processing script
+|   |-- preprocessing.py       # Preprocessing functions (grayscale, binarization, noise removal)
+|   |-- utils.py               # Utility functions
+|   |-- tempCodeRunnerFile.py  # Temporary file created by VS Code
+|-- venv/                     # Virtual environment (dependencies)
 ```
 
+## Future Improvements
+- Fine-tune `microsoft/trocr-large-printed` on domain-specific datasets.
+- Implement adaptive thresholding for better OCR accuracy.
+- Integrate AI-based post-processing to correct OCR errors.

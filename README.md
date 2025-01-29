@@ -33,7 +33,7 @@ This project is an Optical Character Recognition (OCR) chatbot that extracts tex
 
 
 ## Directory Structure
-
+```
 OCR_Chatbot_assignment/
 |-- app.py
 |-- config.py
@@ -54,6 +54,7 @@ OCR_Chatbot_assignment/
 |   |-- utils.py               # Utility functions
 |   |-- tempCodeRunnerFile.py  # Temporary file created by VS Code
 |-- venv/                     # Virtual environment (dependencies)
+```
 
 ## Future Improvements
 - Fine-tune `microsoft/trocr-large-printed` on domain-specific datasets.
